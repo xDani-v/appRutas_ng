@@ -6,12 +6,12 @@
             type="search" name="search" placeholder="Buscar rutas">
     </div>
     <div class="mb-4">
-        <button class="px-4 py-2 bg-blue-500 text-white rounded mr-2" [class.bg-blue-700]="tipoSeleccionado === 'todos'"
-            (click)="seleccionarTipo('todos')">Todos</button>
-        <button class="px-4 py-2 bg-blue-500 text-white rounded mr-2"
-            [class.bg-blue-700]="tipoSeleccionado === 'interno'" (click)="seleccionarTipo('interno')">Interno</button>
-        <button class="px-4 py-2 bg-blue-500 text-white rounded" [class.bg-blue-700]="tipoSeleccionado === 'externo'"
-            (click)="seleccionarTipo('externo')">Externo</button>
+        <select [(ngModel)]="tipoSeleccionado"
+            class="border-2 border-gray-300 bg-white h-10 px-5 pr-16 rounded-lg text-sm focus:outline-none">
+            <option value="todos">Todos</option>
+            <option value="interno">Interno</option>
+            <option value="externo">Externo</option>
+        </select>
     </div>
     <ul>
         <li *ngFor="let ruta of rutasFiltradasPorBusqueda; let i = index" class="border rounded-lg p-2 shadow-lg mb-2">

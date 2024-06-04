@@ -30,9 +30,6 @@ export class RutasComponent {
   tipoSeleccionado = 'todos';
 
 
-  seleccionarTipo(tipo: string) {
-    this.tipoSeleccionado = tipo;
-  }
 
   get rutasFiltradasPorBusqueda() {
     return this.rutas.filter(ruta =>
