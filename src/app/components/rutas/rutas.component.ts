@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { AuthServiceService } from '../../service/auth-service.service';
 
 @Component({
   selector: 'app-rutas',
@@ -13,6 +14,9 @@ export class RutasComponent {
 
   descripcionSeleccionada: number | null = null;
   terminoBusqueda: string = '';
+
+
+  constructor(private authService: AuthServiceService) { }
 
   rutas = [
     { origen: 'Quito', destino: 'Guayaquil', precio: 100, descripcion: 'Transporte directo sin paradas', tipo: 'interno' },
@@ -32,10 +36,16 @@ export class RutasComponent {
 
 
   get rutasFiltradasPorBusqueda() {
-    return this.rutas.filter(ruta =>
-      (ruta.origen.toLowerCase().includes(this.terminoBusqueda.toLowerCase()) ||
-        ruta.destino.toLowerCase().includes(this.terminoBusqueda.toLowerCase())) &&
-      (this.tipoSeleccionado === 'todos' || ruta.tipo === this.tipoSeleccionado)
-    );
+    if (!this.authService.isAuthenticated) {
+      console.log('No estas autenticado');
+      return [];
+    } else {
+      console.log('Estas autenticado');
+      return this.rutas.filter(ruta =>
+        (ruta.origen.toLowerCase().includes(this.terminoBusqueda.toLowerCase()) ||
+          ruta.destino.toLowerCase().includes(this.terminoBusqueda.toLowerCase())) &&
+        (this.tipoSeleccionado === 'todos' || ruta.tipo === this.tipoSeleccionado)
+      );
+    }
   }
 }
